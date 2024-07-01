@@ -24,7 +24,7 @@ jobs:
         with:
           creds: ${{ secrets.AZ_CREDENTIALS }}
       
-      - name: Create Resource Group
+      - name: Create Azure Resournces
         uses: azure/CLI@v2
         with:
           inlineScript: |
@@ -37,12 +37,4 @@ jobs:
               echo "Resource Group ${{ env.AZ_RG_NAME }} already exists."
             fi
 
-      - name: Deploy Template
-        uses: Azure/arm-deploy@v2
-        with:
-          scope: resourcegroup
-          resourceGroupName: ${{ env.AZ_RG_NAME }}
-          deploymentName: ${{ env.AZ_RG_NAME }}
-          template: src/github-dashboard.iac/main.bicep
-          deploymentMode: Incremental
-          parameters: appServicePlanName=${{ env.AZ_APP_NAME }} webAppName=${{ env.AZ_APP_NAME }} storageName=${{ env.AZ_APP_NAME }} logAnalyticsName=${{ env.AZ_APP_NAME }} appInsightName=${{ env.AZ_APP_NAME }} functionName=${{ env.AZ_APP_NAME }} sqlserverName=${{ env.AZ_SQL_NAME }} sqlAdminLogin=${{ env.AZ_SQL_USER }} sqlAdminPassword=${{ secrets.AZ_SQL_PASSWORD }}
+            az deployment group create --name gh-actions --resource-group ${{ env.AZ_RG_NAME }} --template-file src/github-dashboard.iac/main.bicep --parameters appServicePlanName=${{ env.AZ_APP_NAME }} webAppName=${{ env.AZ_APP_NAME }} storageName=${{ env.AZ_APP_NAME }} logAnalyticsName=${{ env.AZ_APP_NAME }} appInsightName=${{ env.AZ_APP_NAME }} functionName=${{ env.AZ_APP_NAME }} sqlserverName=${{ env.AZ_SQL_NAME }} sqlAdminLogin=${{ env.AZ_SQL_USER }} sqlAdminPassword=${{ secrets.AZ_SQL_PASSWORD }}
