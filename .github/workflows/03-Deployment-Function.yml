@@ -1,0 +1,78 @@
+name: 03-Deployment-Function
+
+on:
+  push:
+    paths:
+      - 'src/github-process-function/**'
+  workflow_dispatch:
+
+env:
+  CONFIGURATION: 'release'
+  AZ_RG_NAME: 'rg-githubdashboard'
+  APP_NAME: 'func-githubdashboard'
+  CSPROJ: 'src/github-dashboard.function/github-dashboard.function.csproj'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.CSPROJ }}
+      
+      - name: Build
+        run: dotnet build ${{ env.CSPROJ }} --configuration ${{ env.CONFIGURATION }} --no-restore
+        
+      - name: Publish
+        run: dotnet publish --configuration ${{ env.CONFIGURATION }} --output MyPublishFunction ${{ env.CSPROJ }}
+      
+      - name: Upload dotnet publish results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-publish
+          path: MyPublishFunction
+
+      - name: Upload SQL scripts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sql-publish
+          path: 'src/sqlscripts/*.sql'
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dotnet-publish
+          path: my-app-artifact
+      
+      - uses: actions/download-artifact@v4
+        with:
+          name: sql-publish
+          path: my-sql-artifact
+      
+      - name: Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.ORG_AZ_CREDENTIALS }}
+
+      - name: 'Run Azure Functions action'
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.APP_NAME }}
+          package: my-app-artifact
+
+      - name: Restart function
+        run: az functionapp restart --name ${{ env.APP_NAME }} --resource-group ${{ env.AZ_RG_NAME }}
+      
+      - name: Run SQL Scripts
+        uses: azure/sql-action@v2.2.1
+        with:        
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          path: 'my-sql-artifact/CreateTables.sql'

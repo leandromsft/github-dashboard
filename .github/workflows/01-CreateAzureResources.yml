@@ -1,0 +1,49 @@
+name: 01-CreateAzureResources
+
+on:
+  push:
+    paths:
+      - 'src/github-dashboard.iac/**'
+  workflow_dispatch:
+
+env:
+  AZ_RG_NAME: 'rg-githubdashboard'
+  AZ_RG_LOCATION: 'eastus'
+  AZ_APP_NAME: 'githubdashboard'
+  AZ_SQL_NAME: 'githubdashboard'
+  AZ_SQL_USER: 'githubdashboard'
+
+jobs:
+  bicep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+          
+      - name: Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.ORG_AZ_CREDENTIALS }}
+      
+      - name: Create Resource Group
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            EXISTS=$(az group exists --name ${{ env.AZ_RG_NAME }})
+            if [ "$EXISTS" = "false" ]; then
+              echo "Resource Group ${{ env.AZ_RG_NAME }} does not exist. Creating..."
+              az group create --name ${{ env.AZ_RG_NAME }} --location ${{ env.AZ_RG_LOCATION }}
+              echo "Resource Group ${{ env.AZ_RG_NAME }} created."
+            else
+              echo "Resource Group ${{ env.AZ_RG_NAME }} already exists."
+            fi
+            
+      # Deploy Bicep file
+      - name: Deploy Template
+        uses: Azure/arm-deploy@v2
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.AZ_RG_NAME }}
+          template: src/github-dashboard.iac/main.bicep
+          deploymentMode: Incremental
+          deploymentName: 'gh-actions'
+          parameters: appServicePlanName=${{ env.AZ_APP_NAME }} webAppName=${{ env.AZ_APP_NAME }} storageName=${{ env.AZ_APP_NAME }} logAnalyticsName=${{ env.AZ_APP_NAME }} appInsightName=${{ env.AZ_APP_NAME }} functionName=${{ env.AZ_APP_NAME }} sqlserverName=${{ env.AZ_SQL_NAME }} sqlAdminLogin=${{ env.AZ_SQL_USER }} sqlAdminPassword=${{ secrets.AZ_SQL_PASSWORD }}

@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  buildApi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+          
+      - name: dotnet restore
+        run: dotnet restore src/github-dashboard.api/github-dashboard.api.csproj
+        
+      - name: dotnet build
+        run: dotnet build src/github-dashboard.api/github-dashboard.api.csproj --no-restore
+        
+  buildFunction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+          
+      - name: dotnet restore
+        run: dotnet restore src/github-dashboard.function/github-dashboard.function.csproj
+        
+      - name: dotnet build
+        run: dotnet build src/github-dashboard.function/github-dashboard.function.csproj --no-restore
