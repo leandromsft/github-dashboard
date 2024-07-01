@@ -8,7 +8,7 @@ on:
 
 env:
   CONFIGURATION: 'release'
-  APP_NAME: 'app-githubdashboard'
+  APP_NAME: 'app-ghdashboard'
   CSPROJ: 'src/github-dashboard.api/github-dashboard.api.csproj'
   
 jobs:

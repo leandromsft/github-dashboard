@@ -8,8 +8,8 @@ on:
 
 env:
   CONFIGURATION: 'release'
-  AZ_RG_NAME: 'rg-githubdashboard'
-  APP_NAME: 'func-githubdashboard'
+  AZ_RG_NAME: 'rg-ghdashboard'
+  APP_NAME: 'func-ghdashboard'
   CSPROJ: 'src/github-dashboard.function/github-dashboard.function.csproj'
 
 jobs:

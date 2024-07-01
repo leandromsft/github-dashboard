@@ -7,11 +7,11 @@ on:
   workflow_dispatch:
 
 env:
-  AZ_RG_NAME: 'rg-githubdashboard'
+  AZ_RG_NAME: 'rg-ghdashboard'
   AZ_RG_LOCATION: 'eastus'
-  AZ_APP_NAME: 'githubdashboard'
-  AZ_SQL_NAME: 'githubdashboard'
-  AZ_SQL_USER: 'githubdashboard'
+  AZ_APP_NAME: 'ghdashboard'
+  AZ_SQL_NAME: 'ghdashboard'
+  AZ_SQL_USER: 'ghdashboard'
 
 jobs:
   bicep:
