@@ -1,18 +1,3 @@
-if not exists (select * from sysobjects where name='Issue' and xtype='U')
-    CREATE TABLE Issue (
-        Id INT PRIMARY KEY IDENTITY (1, 1),
-        IssueId INT NOT NULL,
-        IssueNumber INT NOT NULL,
-        IssueTitle VARCHAR(MAX) NOT NULL,
-        Action VARCHAR(255) NOT NULL,
-        State VARCHAR(255) NOT NULL,
-        CreateAt DATETIME2(7) NOT NULL,
-        UpdateAt DATETIME2(7) NULL,
-        ClosedAt DATETIME2(7) NULL,
-        RepositoryName VARCHAR(MAX) NOT NULL
-    )
-GO
-
 if not exists (select * from sysobjects where name='WorkflowRun' and xtype='U')
     CREATE TABLE WorkflowRun (
         Id INT PRIMARY KEY IDENTITY (1, 1),
