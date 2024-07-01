@@ -60,7 +60,7 @@ jobs:
       
       - name: Get Blob storage connection string
         run: |
-          echo "BLOB_CONNECTION_STRING=$(az storage account show-connection-string --name ${{ env.AZ_BLOB_NAME }} --resource-group ${{ env.AZ_APP_NAME }} --query connectionString -o tsv)" >> $GITHUB_ENV
+          echo "BLOB_CONNECTION_STRING=$(az storage account show-connection-string --name ${{ env.AZ_BLOB_NAME }} --resource-group ${{ env.AZ_RG_NAME }} --query connectionString -o tsv)" >> $GITHUB_ENV
 
       - name: Set APP Settings
         uses: Azure/appservice-settings@v1
