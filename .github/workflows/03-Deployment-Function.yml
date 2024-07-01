@@ -68,6 +68,10 @@ jobs:
           app-name: ${{ env.AZ_FUNC_NAME }}
           package: my-app-artifact
       
+      - name: Get Blob storage connection string
+        run: |
+          echo "BLOB_CONNECTION_STRING=$(az storage account show-connection-string --name ${{ env.AZ_BLOB_NAME }} --resource-group ${{ env.AZ_RG_NAME }} --query connectionString -o tsv)" >> $GITHUB_ENV
+
       - name: Set Function Settings
         uses: Azure/appservice-settings@v1
         with:
@@ -76,7 +80,12 @@ jobs:
             [
               {
                 "name": "MyDbContext",
-                "value": "${{ env.AZ_SQL_CONNECTION_STRING }}",
+                "value": "${{ secrets.AZ_SQL_CONNECTION_STRING }}",
+                "slotSetting": false
+              },
+              {
+                "name": "strgithubapp_STORAGE",
+                "value": "${{ env.BLOB_CONNECTION_STRING }}",
                 "slotSetting": false
               }
             ]
