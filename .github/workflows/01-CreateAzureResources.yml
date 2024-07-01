@@ -45,5 +45,4 @@ jobs:
           resourceGroupName: ${{ env.AZ_RG_NAME }}
           template: src/github-dashboard.iac/main.bicep
           deploymentMode: Incremental
-          deploymentName: 'gh-actions'
           parameters: appServicePlanName=${{ env.AZ_APP_NAME }} webAppName=${{ env.AZ_APP_NAME }} storageName=${{ env.AZ_APP_NAME }} logAnalyticsName=${{ env.AZ_APP_NAME }} appInsightName=${{ env.AZ_APP_NAME }} functionName=${{ env.AZ_APP_NAME }} sqlserverName=${{ env.AZ_SQL_NAME }} sqlAdminLogin=${{ env.AZ_SQL_USER }} sqlAdminPassword=${{ secrets.AZ_SQL_PASSWORD }}
