@@ -8,7 +8,7 @@ on:
 
 env:
   AZ_RG_NAME: 'rg-ghdashboard'
-  AZ_RG_LOCATION: 'eastus'
+  AZ_RG_LOCATION: 'centralus'
   AZ_APP_NAME: 'ghdashboard'
   AZ_SQL_NAME: 'ghdashboard'
   AZ_SQL_USER: 'ghdashboard'
