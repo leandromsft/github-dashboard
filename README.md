@@ -50,6 +50,8 @@ To deploy the API that receives the webhook payload, you can run the workflow [0
 
 ### Step 03 - Deploy the Azure Function
 
+Create GitHub secrets for SQL Server Connection String (AZ_SQL_CONNECTION_STRING). created at **Step 01**.
+
 To deploy the Azure Function, you can run the workflow [03-Deployment-Function.yml](.github/workflows/03-Deployment-Function.yml).
 
 ### Step 04 - Configure the GitHub Webhook
@@ -58,7 +60,7 @@ Create a GitHub Webhook to send the workflow_job and workflow_run events to the 
 
 To create the webhook, on Organization level, click on **Settings**, select the **Webhooks** menu, and click on the **Add webhook** button.
 
-In the **Payload URL** field, enter the API endpoint created at [Step 02 - Deploy the API](#step-02---deploy-the-api).
+In the **Payload URL** field, enter the API endpoint created at **Step 02**.
 
 ![WebHook Payload](docs/WebhookPayload.png)
 
