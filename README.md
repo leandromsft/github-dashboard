@@ -3,12 +3,12 @@
 This repository contains an example of how to extract workflow execution data and create dashboards. The data is extracted from the GitHub Actions using WebHook and saved in a SQL Server database.
 
 [![CI](https://github.com/leandromsft/github-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/leandromsft/github-dashboard/actions/workflows/ci.yml)
-
 [![01-CreateAzureResources](https://github.com/leandromsft/github-dashboard/actions/workflows/01-CreateAzureResources.yml/badge.svg)](https://github.com/leandromsft/github-dashboard/actions/workflows/01-CreateAzureResources.yml)
-
 [![02-Deployment-API](https://github.com/leandromsft/github-dashboard/actions/workflows/02-Deployment-API.yml/badge.svg)](https://github.com/leandromsft/github-dashboard/actions/workflows/02-Deployment-API.yml)
-
 [![03-Deployment-Function](https://github.com/leandromsft/github-dashboard/actions/workflows/03-Deployment-Function.yml/badge.svg)](https://github.com/leandromsft/github-dashboard/actions/workflows/03-Deployment-Function.yml)
+
+
+
 
 ## How it works?
 
