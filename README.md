@@ -32,6 +32,8 @@ This repository contains an example of how to extract workflow execution data an
 
 ### Step 01 - Create Azure Resources
 
+Create GitHub secrets for Azure Login (AZ_CREDENTIALS) and SQL Server password (AZ_SQL_PASSWORD).
+ 
 To create the Azure resources, you can run the workflow [01-CreateAzureResources.yml](.github/workflows/01-CreateAzureResources.yml).
 
 ### Step 02 - Deploy the API
