@@ -8,9 +8,9 @@ on:
 
 env:
   CONFIGURATION: 'release'
-  AZ_APP_NAME: 'app-ghdashboard'
   AZ_RG_NAME: 'rg-ghdashboard'
-  AZ_BLOB_NAME: 'rg-ghdashboard'
+  AZ_APP_NAME: 'app-ghdashboard'
+  AZ_BLOB_NAME: 'stvmghdashboard'
   CSPROJ: 'src/github-dashboard.api/github-dashboard.api.csproj'
   
 jobs:
