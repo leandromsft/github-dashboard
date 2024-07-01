@@ -10,6 +10,7 @@ env:
   CONFIGURATION: 'release'
   AZ_RG_NAME: 'rg-ghdashboard'
   AZ_FUNC_NAME: 'func-ghdashboard'
+  AZ_BLOB_NAME: 'stvmghdashboard'
   CSPROJ: 'src/github-dashboard.function/github-dashboard.function.csproj'
 
 jobs:
