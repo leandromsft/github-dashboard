@@ -1,5 +1,10 @@
 # GitHub Actions Dashboard
 
+> [!NOTE]  
+> This repository contains an example project that can be used as a reference or starting point for your own projects.
+> 
+> **Attention:** This project **is not supported** by the GitHub product team, the GitHub support team, or Microsoft. Any questions or issues related to the use of this project must be resolved independently.  However, you can open an issue to seek help from the community.
+
 This repository contains an example of how to extract workflow execution data and create dashboards. The data is extracted from the GitHub Actions using WebHook and saved in a SQL Server database.
 
 [![CI](https://github.com/leandromsft/github-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/leandromsft/github-dashboard/actions/workflows/ci.yml)
